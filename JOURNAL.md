@@ -56,3 +56,26 @@ Corrections apportées :
   programme permettait déjà de contrôler. Elle apporte surtout une garantie de bout en bout.
 - Pour Erdős n° 64 en diamètre 3, la preuve publiée a été produite par une IA, et ses auteurs
   demandaient explicitement une vérification indépendante.
+
+## 2026-10-22 — Publication et Comparator
+
+Le dépôt est publié en public : https://github.com/Sky273/lean-recent-results (Apache-2.0).
+
+Suivant l'usage du canal Zulip « AI authored projects » (Comparator et `formalization.yaml`
+considérés comme le minimum), ajout de :
+
+- un fichier défi par résultat (`Challenges/`), contenant uniquement l'énoncé et n'important que
+  Mathlib ;
+- une configuration Comparator par résultat (`comparator/`) ;
+- `formalization.yaml` (v0.4), validé contre le schéma officiel ;
+- une intégration continue GitHub en trois volets :
+  - compilation et `leanchecker` sur les 12 modules ;
+  - `lake comparator --paranoid` dans son bac à sable pour chaque résultat ;
+  - validation de `formalization.yaml`.
+
+**Résultat de la CI :** tout est vert. Pour chacun des six résultats, six noyaux indépendants
+acceptent la preuve : Lean standard, Lean paranoïaque, lean4lean, nanoda, con-leche et
+con-ron.
+
+**Contrôle négatif local :** un énoncé de défi volontairement faussé est rejeté (« statement do
+not match »).
