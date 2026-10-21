@@ -17,10 +17,15 @@ explains the limits of those searches.
 
 **Verification.**
 
+- **Comparator:** for each result, a statement-only challenge file (`Challenges/`, importing
+  only Mathlib) and a config (`comparator/`). `lake comparator --paranoid` checks, in CI and in
+  a sandbox, that our proofs establish exactly these statements with the standard axioms only.
+  It also checks them with the external kernels bundled with Lean (nanoda, con-leche, con-ron).
 - No `sorry`, `admit` or `native_decide`.
 - `#print axioms` on the main theorems reports only `propext`, `Classical.choice` and
   `Quot.sound`.
 - Every module, including the fidelity bridges, passes `leanchecker`.
+- Project metadata follows the [formalization.yaml](formalization.yaml) standard (v0.4).
 
 **Statement fidelity.** Lean guarantees the proofs, but not that a formal statement says what
 the paper says. To check that independently:
@@ -59,6 +64,12 @@ comments are welcome through GitHub issues. The working log, in French, is in
 ```bash
 lake exe cache get
 lake build
+```
+
+Check one result with Comparator (Linux, requires `bubblewrap`):
+
+```bash
+lake comparator --config comparator/Erdos64SmallDiameter.json --paranoid
 ```
 
 Replay the kernel checker, one module per invocation:

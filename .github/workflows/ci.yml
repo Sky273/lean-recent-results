@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and replay the kernel
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      # leanprover/lean-action pinned to 38fbc41a (= refs/tags/v1.5.0).
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: true
+          test: false
+          lint: false
+      - name: Replay every module with leanchecker
+        run: |
+          for m in RecentResults.NoelListTotalColouring RecentResults.NoelPartialListColouring \
+                   RecentResults.Erdos33 RecentResults.ParkFibonacci \
+                   RecentResults.Erdos64SmallDiameter RecentResults.XuAdditiveBases \
+                   Fidelity.NoelListTotalColouring Fidelity.NoelPartialListColouring \
+                   Fidelity.Erdos33 Fidelity.ParkFibonacci \
+                   Fidelity.Erdos64SmallDiameter Fidelity.XuAdditiveBases; do
+            echo "::group::leanchecker $m"
+            lake env leanchecker "$m"
+            echo "::endgroup::"
+          done
+
+  comparator:
+    name: Comparator (${{ matrix.result }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        result:
+          - NoelListTotalColouring
+          - NoelPartialListColouring
+          - Erdos33
+          - ParkFibonacci
+          - Erdos64SmallDiameter
+          - XuAdditiveBases
+    steps:
+      - uses: actions/checkout@v4
+      # Install the toolchain and the Mathlib cache only; the solution is built by
+      # `lake comparator` itself, inside its sandbox.
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: false
+          test: false
+          lint: false
+      - name: Install bubblewrap
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap
+          # Ubuntu restricts unprivileged user namespaces through AppArmor; bwrap needs them.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+      - name: lake comparator --paranoid
+        run: lake comparator --config comparator/${{ matrix.result }}.json --paranoid
+
+  metadata:
+    name: Validate formalization.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check-jsonschema
+        run: |
+          pipx run check-jsonschema \
+            --schemafile https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json \
+            formalization.yaml

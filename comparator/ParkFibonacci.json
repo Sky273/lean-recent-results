@@ -1,0 +1,10 @@
+{
+  "challenge_module": "Challenges.ParkFibonacci",
+  "solution_module": "RecentResults.ParkFibonacci",
+  "theorem_names": [
+    "FibSpiro.not_isAUSet_posFib",
+    "FibSpiro.exists_nat_counterexample",
+    "FibCrit.criterion"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

@@ -1,0 +1,11 @@
+{
+  "challenge_module": "Challenges.XuAdditiveBases",
+  "solution_module": "RecentResults.XuAdditiveBases",
+  "theorem_names": [
+    "XuBvHK.theorem_1_1",
+    "XuBvHK.theorem_1_1_sharp",
+    "XuBvHK.corollary_1_2",
+    "XuBvHK.Check.basis_sumset_cardinality_bound"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

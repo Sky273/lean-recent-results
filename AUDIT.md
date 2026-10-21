@@ -14,6 +14,12 @@ sheet is meant to make that look take minutes.
 
 **Global guarantees (all six results).**
 
+- **Comparator.** `Challenges/<Result>.lean` states the main theorems, importing only Mathlib
+  and repeating verbatim the definitions they need. `lake comparator --paranoid` checks in CI,
+  inside its sandbox, that the proofs in `RecentResults/` establish exactly those statements
+  with the standard axioms only. It also checks them with the external kernels bundled with
+  Lean. The challenge files are the shortest place to read the statements. A negative control
+  (an altered challenge statement) is rejected as expected.
 - No `sorry`, `admit`, `native_decide` or added `axiom`.
 - `#print axioms` on every main theorem gives exactly `[propext, Classical.choice, Quot.sound]`.
 - Every module, including every `Fidelity/` bridge, was replayed by `leanchecker`, the

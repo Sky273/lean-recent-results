@@ -1,0 +1,9 @@
+{
+  "challenge_module": "Challenges.NoelListTotalColouring",
+  "solution_module": "RecentResults.NoelListTotalColouring",
+  "theorem_names": [
+    "NoelLTCC.exists_cubic_totalChromatic_four_not_totalChoosable_four",
+    "NoelLTCC.list_total_colouring_conjecture_false"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

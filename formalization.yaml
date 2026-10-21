@@ -1,0 +1,282 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "RecentResults: machine-checked verification of six recent mathematical results"
+  description: >-
+    Lean 4 / Mathlib verifications of six results that appeared in 2025-2026, several of them
+    found with AI systems: (1) Noel's counterexample to the List Total Colouring Conjecture
+    (a cubic graph on 20 vertices with total chromatic number 4 that is not totally
+    4-choosable); (2) Noel's counterexample to the Albertson-Grossman-Haas partial list
+    colouring conjecture (14 vertices), which also refutes Iradmusa's ratio conjecture;
+    (3) an additive complement of the squares with limsup |A cap [1,N]|/sqrt(N) <= 13 sqrt(2)/4
+    (Erdos problem 33, upper bound only); (4) Park's proof that the Fibonacci numbers are not an
+    additive uniqueness set for multiplicative functions, with his general criterion;
+    (5) cycles of length 4 or 8 in graphs of diameter <= 2 and minimum degree >= 3 (Carr), and of
+    diameter <= 3 and minimum degree >= 4 (an AI-produced proof claim; partial progress on Erdos
+    problem 64); (6) Xu's strengthened Bukh-van Hintum-Keevash bound |B| >= n + C(t+1,2) with
+    sharpness.
+  authors: ["Claude (Anthropic), directed by Luc Moreau"]
+  responsible_maintainers: ["Luc Moreau"]
+  license: "Apache-2.0"
+
+sources:
+  - title: "The List Total Colouring Conjecture is False"
+    authors: ["Jonathan A. Noel"]
+    contributors:
+      - name: "ChatGPT 6 Astra Ultra"
+        role: "found the counterexample; drafts of the arguments (per the paper's AI declaration)"
+    id: "arXiv:2609.38417"
+    type: "article"
+    location: "Theorem 1.1 (v2, 2026-10-09)"
+    relationship: "formalizes"
+    note: >-
+      The lower half of Theorem 1.1 (chi'' = 4 and not totally 4-choosable) and the refutation
+      of the conjecture are formalized. The upper bound chi''_l <= 5, which the paper takes from
+      Juvan-Mohar-Skrekovski (1998, Theorem 3.1), is not.
+    author_endorsement: "not-contacted"
+  - title: "The Partial List Colouring Conjecture is False"
+    authors: ["Jonathan A. Noel"]
+    contributors:
+      - name: "ChatGPT 6 Astra Ultra"
+        role: "found the counterexample and the proof (per the paper's AI declaration)"
+    id: "arXiv:2609.23291"
+    type: "article"
+    location: "Theorem 1.1 (v1, 2026-09-20)"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+  - title: "Erdos problem 33: forum post #8879 (upper bound 13 sqrt(2)/4)"
+    contributors:
+      - name: "donteatllamas"
+        role: "forum user who posted the construction, made with the help of GPT"
+      - name: "Paul Erdos"
+        role: "problem proposer"
+    id: "https://www.erdosproblems.com/forum/thread/33#post-8879"
+    type: "web post"
+    location: "write-up linked from the post: https://github.com/LeanMeanBean/erdos-33"
+    relationship: "formalizes"
+    note: "Unsigned write-up; no review recorded in the thread."
+    author_endorsement: "not-contacted"
+  - title: "The Fibonacci numbers are not an additive uniqueness set for multiplicative functions"
+    authors: ["Poo-Sung Park"]
+    contributors:
+      - name: "ChatGPT (OpenAI GPT-6 Astra)"
+        role: "proposed the switching construction and ran the search (per the paper, Section 6)"
+    id: "arXiv:2609.08137"
+    type: "article"
+    location: "Theorem 2.1, Proposition 3.1, Theorem 4.1 (v1, 2026-09-08)"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+  - title: "Cycles of Length 4 or 8 in Graphs with Diameter 2 and Minimum Degree at Least 3"
+    authors: ["Avery Carr"]
+    id: "arXiv:2508.19302"
+    type: "article"
+    location: "Theorem 1.1 (v4, 2026-01-30)"
+    relationship: "formalizes"
+    note: "The Lean proof restructures Case 2 (it splits on whether the base edge lies in a triangle)."
+    author_endorsement: "not-contacted"
+  - title: "Erdos problem 64, proof claim #383: minimum degree >= 4 and diameter <= 3 give a 4- or 8-cycle"
+    contributors:
+      - name: "Murat Can Temeller"
+        role: "claimant on erdosproblems.com (proof claim #383)"
+      - name: "Claude Opus 5.5 (Anthropic)"
+        role: "produced the theorem, proof, code and computations (per the GitHub issue)"
+    id: "https://github.com/zey9310/zey9310-math/issues/1"
+    type: "web post"
+    location: "https://www.erdosproblems.com/forum/thread/64/proof-claims (claim #383, 2026-10-02)"
+    relationship: "formalizes"
+    note: "The issue's computer searches are not formalized."
+    author_endorsement: "not-contacted"
+  - title: "Solution of the strengthened Bukh-van Hintum-Keevash conjecture on additive bases"
+    authors: ["Zixiang Xu"]
+    id: "arXiv:2605.10771"
+    type: "article"
+    location: "Theorem 1.1, sharpness construction, Corollary 1.2, Lemma 2.2 (v1, 2026-05-11)"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/plby/lean-proofs (src/latest/BorisBukh/BasisSubset.lean)"
+    relationship: "independent"
+    note: >-
+      B. Alexeev's earlier proof (2026-07-27) of the sum form |A| + |B| >= 2n over R^n, which
+      implies result 6 for t <= 1; its statement is re-derived from ours.
+  - id: "https://github.com/facebookresearch/atlas-lean/tree/8920030e01896f93ad131e164cc11f98c91a44d8"
+    relationship: "other"
+    note: >-
+      atlas-lean lists the AGH and Iradmusa partial list colouring conjectures as unproved
+      theorem_wanted targets; their statements are copied and proved false here (result 2).
+  - id: "https://github.com/google-deepmind/formal-conjectures/tree/2a315101d438a68c0ebdf22b7485ac731624efed"
+    relationship: "other"
+    note: >-
+      Definitions IsKChoosable / listChromaticNumber and the Erdos 33 statements are copied
+      verbatim from formal-conjectures, where the vanDoorn variant of Erdos 33 had no proof.
+
+classification:
+  arxiv: ["math.CO", "math.NT"]
+  msc2020: ["05C15", "05C38", "05C12", "11B39", "11A25", "11B13", "11B30"]
+
+status:
+  scope: >-
+    Every main result of the six sources listed above is formalized, except: the upper bound
+    chi''_l <= 5 in Noel (arXiv:2609.38417), taken there from the literature and not needed for
+    the refutation; the computer searches of proof claim #383; the optimal constant of Erdos
+    problem 33, which remains open. Partial work on two further results is not included.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "NoelLTCC.exists_cubic_totalChromatic_four_not_totalChoosable_four"
+      file: "RecentResults/NoelListTotalColouring.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/NoelListTotalColouring.json"
+    - declaration: "NoelLTCC.list_total_colouring_conjecture_false"
+      file: "RecentResults/NoelListTotalColouring.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/NoelListTotalColouring.json"
+    - declaration: "Noel.main"
+      file: "RecentResults/NoelPartialListColouring.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/NoelPartialListColouring.json"
+    - declaration: "Noel.not_AGH"
+      file: "RecentResults/NoelPartialListColouring.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/NoelPartialListColouring.json"
+    - declaration: "PartialListColoringWanted.conjecture_refuted"
+      file: "RecentResults/NoelPartialListColouring.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/NoelPartialListColouring.json"
+    - declaration: "Erdos33.erdos_33_le_13_sqrt2_div_4"
+      file: "RecentResults/Erdos33.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Erdos33.json"
+    - declaration: "FibSpiro.not_isAUSet_posFib"
+      file: "RecentResults/ParkFibonacci.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/ParkFibonacci.json"
+    - declaration: "FibCrit.criterion"
+      file: "RecentResults/ParkFibonacci.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/ParkFibonacci.json"
+    - declaration: "Erdos64Diam.carr_diam2"
+      file: "RecentResults/Erdos64SmallDiameter.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Erdos64SmallDiameter.json"
+    - declaration: "Erdos64Diam.diam3_minDegree4"
+      file: "RecentResults/Erdos64SmallDiameter.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/Erdos64SmallDiameter.json"
+    - declaration: "XuBvHK.theorem_1_1"
+      file: "RecentResults/XuAdditiveBases.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/XuAdditiveBases.json"
+    - declaration: "XuBvHK.theorem_1_1_sharp"
+      file: "RecentResults/XuAdditiveBases.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/XuAdditiveBases.json"
+    - declaration: "XuBvHK.corollary_1_2"
+      file: "RecentResults/XuAdditiveBases.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator/XuAdditiveBases.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: >-
+        Multi-agent workflows: prior-art search (Mathlib PR titles, Zulip archive to
+        2026-09-25, formal-conjectures, plby/lean-proofs, openai/math, Palomar, GitHub code
+        search); one assessment agent per candidate result, which also wrote the formalization;
+        an adversarial agent per candidate; blind restatement of every result from its source by
+        an agent that had not seen the formalization (Fidelity/Blind), then Lean proofs of the
+        blind statements from ours (Fidelity/); a referee-style and a Lean-expert review per
+        result, each serious finding re-checked by a refuting agent; then Comparator challenges.
+      cost:
+        wall_time: "about two days (2026-10-21 to 2026-10-22)"
+        spend_usd: "not tracked"
+        hardware: "API-only agents; a Windows laptop for local builds; GitHub Actions for Comparator"
+      prompting_notes: >-
+        The human (a computer scientist, not a mathematician) set the goals and the publication
+        policy (transparency; no overclaiming; nothing sent to researchers without review) and
+        approved each publication step. All Lean code, statements and documentation were written
+        by the AI agents.
+  spend_usd: "not tracked"
+  notes: >-
+    Statements were checked by Comparator (challenge files in Challenges/, configs in
+    comparator/), run in CI with --paranoid, and every module is replayed with leanchecker.
+
+fidelity:
+  divergences: >-
+    Noel LTCC: the upper bound chi''_l <= 5 is not formalized; the final step is a kernel
+    decide over 256 cases instead of the paper's common-colour argument. Noel PLCC: the trivial
+    case l = k is omitted from the conjecture (the refuted statement is weaker, the refutation
+    stronger). Erdos 33: coverage is proved for every natural number, not only large ones; the
+    vanDoorn variant is derived from the new bound. Park: the key lemma and the criterion hold
+    for all n, m >= 0 and without p != q. Erdos 64: ediam <= 2 weakens Carr's diameter = 2; the
+    proof of Carr's theorem restructures his Case 2. Xu: a rank-nullity argument replaces the
+    forest-contraction count; Lemma 2.2 is split into a folding step and a sharper F_2^n case.
+    See AUDIT.md for details.
+
+review:
+  status: "agent-reviewed"
+  reviewers: []
+  notes: >-
+    No human mathematician has reviewed these formalizations. Review consisted of the blind
+    fidelity checks (Fidelity/), adversarial and referee-style AI reviews, Comparator, and
+    leanchecker. AUDIT.md lists, for every result, the source claim, the Lean statement, the
+    self-written definitions and what is not verified.
+
+alignment:
+  namespace: "NoelLTCC, Noel, Erdos33, FibSpiro, FibCrit, Erdos64Diam, XuBvHK"
+  statements:
+    - source: "Noel, arXiv:2609.38417, Theorem 1.1 (chi'' = 4, chi''_l >= 5) and LTCC refutation"
+      lean: "NoelLTCC.exists_cubic_totalChromatic_four_not_totalChoosable_four, NoelLTCC.list_total_colouring_conjecture_false"
+      module: "RecentResults.NoelListTotalColouring"
+      status: "proved"
+    - source: "Noel, arXiv:2609.38417, Theorem 1.1 (chi''_l <= 5, from Juvan-Mohar-Skrekovski)"
+      lean: ""
+      module: ""
+      status: "not-formalized"
+    - source: "Noel, arXiv:2609.23291, Theorem 1.1 and AGH refutation"
+      lean: "Noel.main, Noel.not_AGH"
+      module: "RecentResults.NoelPartialListColouring"
+      status: "proved"
+    - source: "Erdos 33, forum post #8879: limsup <= 13 sqrt(2)/4"
+      lean: "Erdos33.erdos_33_le_13_sqrt2_div_4"
+      module: "RecentResults.Erdos33"
+      status: "proved"
+    - source: "Park, arXiv:2609.08137, main theorem and Theorem 4.1"
+      lean: "FibSpiro.not_isAUSet_posFib, FibSpiro.exists_nat_counterexample, FibCrit.criterion"
+      module: "RecentResults.ParkFibonacci"
+      status: "proved"
+    - source: "Carr, arXiv:2508.19302, Theorem 1.1"
+      lean: "Erdos64Diam.carr_diam2"
+      module: "RecentResults.Erdos64SmallDiameter"
+      status: "proved"
+    - source: "Erdos 64 proof claim #383 (diameter <= 3, minimum degree >= 4)"
+      lean: "Erdos64Diam.diam3_minDegree4"
+      module: "RecentResults.Erdos64SmallDiameter"
+      status: "proved"
+    - source: "Xu, arXiv:2605.10771, Theorem 1.1, sharpness, Corollary 1.2"
+      lean: "XuBvHK.theorem_1_1, XuBvHK.theorem_1_1_sharp, XuBvHK.corollary_1_2"
+      module: "RecentResults.XuAdditiveBases"
+      status: "proved"
+
+acknowledgements: >-
+  Mathlib; google-deepmind/formal-conjectures and facebookresearch/atlas-lean for verbatim
+  definitions and statements (see NOTICE); the Lean FRO for Comparator and the bundled external
+  kernels.

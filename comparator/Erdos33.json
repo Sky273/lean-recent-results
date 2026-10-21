@@ -1,0 +1,9 @@
+{
+  "challenge_module": "Challenges.Erdos33",
+  "solution_module": "RecentResults.Erdos33",
+  "theorem_names": [
+    "Erdos33.erdos_33_le_13_sqrt2_div_4",
+    "Erdos33.erdos_33.variants.vanDoorn"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}
