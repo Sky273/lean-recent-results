@@ -1,0 +1,43 @@
+RecentResults
+Copyright 2026 Luc Moreau
+
+This project is licensed under the Apache License, Version 2.0 (see LICENSE).
+It was produced with the assistance of an AI system (Claude, Anthropic); see README.md.
+
+It contains short verbatim excerpts (definitions and theorem statements) from the
+following projects, reproduced to allow independent cross-checking of statements:
+
+1. google-deepmind/formal-conjectures (https://github.com/google-deepmind/formal-conjectures),
+   commit 2a315101d438a68c0ebdf22b7485ac731624efed.
+   Copyright The Formal Conjectures Authors. Licensed under the Apache License, Version 2.0.
+   Excerpts:
+   - FormalConjecturesForMathlib/Combinatorics/SimpleGraph/Coloring/List.lean
+     (`IsKChoosable`, `listChromaticNumber`), in
+     RecentResults/NoelListTotalColouring.lean and RecentResults/NoelPartialListColouring.lean.
+   - FormalConjectures/ErdosProblems/33.lean (`AdditiveBasisCondition` and the statement of
+     `erdos_33.variants.vanDoorn`), in RecentResults/Erdos33.lean.
+   Modifications: namespaces changed; attributes removed.
+
+2. facebookresearch/atlas-lean (https://github.com/facebookresearch/atlas-lean),
+   commit 8920030e01896f93ad131e164cc11f98c91a44d8.
+   Licensed under the Apache License, Version 2.0, with the notice reproduced in
+   third_party/atlas-lean-LICENSE ("Codebase is not intended for use to train, fine-tune,
+   distill, evaluate, or otherwise develop ML models").
+   Excerpts:
+   - MathlibExt/Combinatorics/SimpleGraph/ListColoring.lean (`IsListColorable`,
+     `IsChoiceNumber`);
+   - WantedExt/Combinatorics/PartialListColoringProportionalBoundWanted.lean and
+     WantedExt/GraphTheory/PartialListColoringWanted.lean (definitions and the
+     `conjecture` statements);
+   all in RecentResults/NoelPartialListColouring.lean.
+   Modifications: namespaces changed; some docstrings shortened; proofs of the
+   `theorem_wanted` targets added.
+
+3. plby/lean-proofs (https://github.com/plby/lean-proofs), which carries no license.
+   Only the four-line mathematical statement of
+   `BasisSubset.basis_sumset_cardinality_bound` (|A| + |B| ≥ 2n) is restated, in
+   RecentResults/XuAdditiveBases.lean, to show that it follows from our Theorem 1.1.
+   No proof code from that repository is used.
+
+The files in Fidelity/Blind/ quote single theorem statements from the cited papers, with
+attribution, for the purpose of checking formalization fidelity.
